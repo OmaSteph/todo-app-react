@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 
-import Home from './pages/home.jsx'
+import Home from './pages/Home'
 import TaskDetails from './pages/TaskDetails'
 
 const queryClient = new QueryClient()
