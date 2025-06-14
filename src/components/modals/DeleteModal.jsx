@@ -1,6 +1,7 @@
 import React from 'react'
+import { Loader2Icon } from 'lucide-react'
 
-const DeleteModal = ({ handleDelete, handleClose }) => {
+const DeleteModal = ({ task, isLoading, handleDelete, handleClose }) => {
   return (
     <div
       className='absolute z-10'
@@ -54,14 +55,16 @@ const DeleteModal = ({ handleDelete, handleClose }) => {
               <button
                 type='button'
                 className='inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto'
-                onClick={handleDelete}
+                onClick={() => handleDelete(task)}
               >
-                Delete
+                {isLoading && <Loader2Icon className='animate-spin' />}
+                {isLoading ? 'Deleting...' : 'Delete'}
               </button>
               <button
                 type='button'
                 className='mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto'
                 onClick={handleClose}
+                disabled={isLoading}
               >
                 Cancel
               </button>

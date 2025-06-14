@@ -1,12 +1,25 @@
 import React from 'react'
 import AddTaskModal from '@/components/modals/AddTaskModal'
+import { useTaskMutations } from '@/hooks/useTaskMutations'
 
 const AddNewTask = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const { addTaskMutation } = useTaskMutations()
+
+  const handleSave = (newTask) => {
+    addTaskMutation.mutate(
+      { newTask },
+      {
+        onSuccess: () => setIsModalOpen(false)
+      }
+    )
+  }
+
   return (
     <>
       <button
         className='w-[50px] h-[50px] cursor-pointer absolute bottom-[14px] right-[14px]'
+        aria-label='Add new task'
         onClick={() => setIsModalOpen(true)}
       >
         <img
@@ -20,10 +33,8 @@ const AddNewTask = () => {
 
       {isModalOpen && (
         <AddTaskModal
-          handleEdit={() => {
-            // console.log(`Deleting task with id: ${task.id}`)
-            setIsModalOpen(false)
-          }}
+          isLoading={addTaskMutation.isPending}
+          handleSave={handleSave}
           handleClose={() => setIsModalOpen(false)}
         />
       )}
@@ -32,23 +43,3 @@ const AddNewTask = () => {
 }
 
 export default AddNewTask
-
-// const [todos, setTodos] = useState([])
-// const [showAddTaskModal, setShowAddTaskModal] = useState(false);
-
-// import TodosContainer from './components/todoscontainer'
-// import AddTaskModal from './components/addtaskmodal'
-
-{
-  /* <TodosContainer todos={todos} setTodos={setTodos} /> */
-}
-
-{
-  /* 
-    {showAddTaskModal && (
-      <AddTaskModal
-        onClose={() => setShowAddTaskModal(false)}
-        onAdd={(setTask) => setTask([...task])}
-      />
-    )} */
-}

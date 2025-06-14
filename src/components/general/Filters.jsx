@@ -12,15 +12,20 @@ import {
 
 const filterData = [
   { value: 'all', label: 'All Status' },
-  { value: 'done', label: 'Done' },
-  { value: 'todo', label: 'Todo' }
+  { value: 'completed', label: 'Completed' },
+  { value: 'pending', label: 'Pending' }
 ]
 
-const Filters = () => {
+const Filters = ({ query, filter, onQuerySearch, onFilterChange }) => {
   return (
     <div className='search-filter__inputs flex justify-center items-center gap-4'>
-      <Input type='email' placeholder='Search' />
-      <Select>
+      <Input
+        type='text'
+        placeholder='Search'
+        value={query}
+        onChange={(e) => onQuerySearch(e.target.value)}
+      />
+      <Select value={filter} onValueChange={onFilterChange}>
         <SelectTrigger className='w-[150px]'>
           <SelectValue placeholder='Filters' />
         </SelectTrigger>
